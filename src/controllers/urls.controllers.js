@@ -150,3 +150,20 @@ export async function showUserUrls(req,res){
         res.sendStatus(500);
     }
 }
+
+export async function showRanking(req,res){
+    try{
+        const ranking = (await connectionDb.query(
+            `SELECT users.id, users.name,
+             SUM(urls."visitCount") as "visitCount", COUNT(urls."visitCount") AS "linksCount"
+              FROM urls JOIN users 
+              ON urls."userId"=users.id 
+              GROUP BY users.id 
+              ORDER BY "visitCount" DESC LIMIT 10 ;`
+        )).rows;
+        res.send(ranking);
+    }catch(err){
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
