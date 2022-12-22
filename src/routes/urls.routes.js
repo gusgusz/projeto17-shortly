@@ -1,10 +1,11 @@
 import { Router } from "express";
-import {shortUrl, showUrl, openUrl} from "../controllers/urls.controllers.js"
+import {shortUrl, showUrl, openUrl, deleteUrl} from "../controllers/urls.controllers.js"
 import { authenticate } from "../middleware/auth.middleware.js";
 
 const router = Router();
 router.post("/urls/shorten", authenticate,shortUrl);
 router.get("/urls/:id", showUrl);
 router.get("/urls/open/:shortUrl", openUrl);
+router.delete("/urls/:id",authenticate, deleteUrl);
 
 export default router;

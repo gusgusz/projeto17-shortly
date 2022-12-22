@@ -81,3 +81,37 @@ export async function openUrl(req,res){
         res.sendStatus(500);
     }
 }
+
+export async function deleteUrl(req,res){
+    const userId = res.locals.userId;
+    const urlId = req.params.id;
+    console.log(userId," UserId");
+
+
+    try{
+        const isUrl = (await connectionDb.query(
+            `SELECT * FROM urls WHERE id=$1`,
+            [urlId]
+        )).rows[0];
+        if(!isUrl){
+            res.status(404).send("URL não encontrada!");
+            return;
+        }
+       
+
+        if(isUrl.userId !== userId){
+            res.status(401).send("shortUrl não pertence ao usuário!");
+            return;
+        }
+
+        await connectionDb.query(
+            `DELETE FROM urls WHERE id=$1;`,
+            [urlId]
+        );
+        res.sendStatus(204);
+       
+    }catch(err){
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
