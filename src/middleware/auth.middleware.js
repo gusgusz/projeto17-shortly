@@ -5,7 +5,7 @@ export async function authenticate(req,res,next){
     const authorization = req.headers.authorization;
 
     if(!authorization){
-        res.sendStatus(401);
+        res.status(401).send("É necessário um Bearer token!");
         return;
     }
     
@@ -18,7 +18,7 @@ export async function authenticate(req,res,next){
     )).rows;
 
     if(isToken.length === 0){
-        res.sendStatus(401);
+        res.status(401).send("Token não encontrado!");
         return;
     }
 
