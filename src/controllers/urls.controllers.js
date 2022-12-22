@@ -115,3 +115,38 @@ export async function deleteUrl(req,res){
         res.sendStatus(500);
     }
 }
+
+export async function showUserUrls(req,res){
+    const userId = res.locals.userId;
+
+    try{
+        const isUser = (await connectionDb.query(
+            `SELECT * FROM users WHERE id=$1;`,
+            [userId]
+        )).rows[0];
+        console.log(isUser);
+        if(!isUser){
+            res.status(404).send("Usuário não encontrado");
+        }
+        const total = (await connectionDb.query(
+            `SELECT SUM(urls."visitCount") as VisitCount FROM urls WHERE "userId"=$1;`,
+            [userId]
+        )).rows[0];
+        const urls = (await connectionDb.query(
+            `SELECT * FROM urls WHERE "userId"=$1;`,
+            [userId]
+        )).rows;
+            const shortenedUrls = urls.map((url) => {
+                delete url.userId;
+                delete url.createdAt;
+                return url;
+            });
+        const body = {id: userId, name: isUser.name, ...total,shortenedUrls};
+
+        res.send( body);
+
+    }catch(err){
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
