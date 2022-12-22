@@ -7,5 +7,5 @@ export const connectionDb = new Pool({
     port: 5432,
     user: "postgres",
     password: "gusgusgus",
-    database: "shortlyAPI",
+    database: "shortlyapi",
 });
