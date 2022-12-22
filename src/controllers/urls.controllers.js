@@ -3,6 +3,7 @@ import { urlSchemma } from "../models/urls.models.js";
 import { nanoid } from "nanoid";
 import dayjs from "dayjs";
 
+
 export async function shortUrl(req,res){
     const  {userId }= res.locals;
 
@@ -50,6 +51,31 @@ export async function showUrl(req,res){
         delete body.createdAt; 
         delete body.visitCount;   
         res.send(body);
+    }catch(err){
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
+
+export async function openUrl(req,res){
+    const shortUrl = req.params.shortUrl;
+    try{
+        const body = (await connectionDb.query(
+            `SELECT * FROM urls WHERE "shortUrl"=$1;`,
+            [shortUrl]
+        )).rows[0];
+
+        if(!body){
+            res.status(404).send("Url não encontrada!");
+            return;
+        }
+        await connectionDb.query(
+            `UPDATE urls SET "visitCount"="visitCount" + 1 WHERE "shortUrl"=$1;`,
+            [shortUrl]
+
+        );
+        res.redirect(body.url);
+
     }catch(err){
         console.log(err.message);
         res.sendStatus(500);
