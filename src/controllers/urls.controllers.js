@@ -33,3 +33,25 @@ export async function shortUrl(req,res){
  
    
 }
+
+export async function showUrl(req,res){
+    const id = req.params.id;
+
+    try{
+        const body = (await connectionDb.query(
+            `SELECT * FROM urls WHERE id=$1`,
+            [id]
+        )).rows[0];
+        if(!body){
+            res.status(404).send("URL não encontrada!");
+            return;
+        }
+        delete body.userId;
+        delete body.createdAt; 
+        delete body.visitCount;   
+        res.send(body);
+    }catch(err){
+        console.log(err.message);
+        res.sendStatus(500);
+    }
+}
