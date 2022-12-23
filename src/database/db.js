@@ -8,5 +8,6 @@ const {Pool} = pkg;
 
 export const connectionDb = new Pool({
     connectionString: process.env.DATABASE_URL,
+    ssl: true,
   });
   

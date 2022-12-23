@@ -56,6 +56,9 @@ export async function login(req,res){
       "SELECT * FROM users WHERE email=$1;", 
       [email]
     )).rows;
+    if(!isUser){
+      res.status(404).send("Usuário não encontrado");
+    }
 
     console.log(isUser);
     const isPassword = await bcrypt.compare(password, isUser[0].password);
