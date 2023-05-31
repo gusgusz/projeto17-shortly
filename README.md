@@ -3,6 +3,31 @@
 # Projeto17 Shortly
 Este projeto é uma aplicação BackEnd para encurtar URLs.
 
+## Como rodar a aplicação
+
+   Certifique-se de ter o Node.js instalado em seu sistema. Você pode baixar a versão mais recente do Node.js em: https://nodejs.org
+
+   Clone este repositório para o seu ambiente local.
+
+   No diretório raiz do projeto, execute o seguinte comando para instalar as dependências:
+
+`npm install`
+
+Crie um arquivo .env no diretório raiz do projeto e defina as variáveis de ambiente necessárias. Por exemplo:
+
+`PORT=3000
+MONGODB_URI=mongodb://localhost:27017/shortly
+JWT_SECRET=seu_segredo_aqui`
+
+Inicie a aplicação executando o seguinte comando:
+
+   ` npm start`
+
+A aplicação será executada localmente e estará disponível no endereço http://localhost:3000.
+
+
+
+
 ## Rotas
 
 A seguir, estão as rotas disponíveis neste projeto:
