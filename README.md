@@ -19,7 +19,7 @@ json
   "url": "https://www.example.com/very/long/url"
 }
 
-###2. Rota de exibição de URL
+### 2. Rota de exibição de URL
 
 `GET /urls/:id`
 
@@ -30,7 +30,7 @@ Exemplo de solicitação:
 
 `GET /urls/123456789`
 
-###3. Rota de abertura de URL
+### 3. Rota de abertura de URL
 
 `GET /urls/open/:shortUrl`
 
@@ -43,7 +43,7 @@ sql
 GET /urls/open/abcd123
 
 Se a URL encurtada existir no banco de dados, o servidor irá redirecionar para a URL original correspondente.
-###4. Rota de exclusão de URL
+### 4. Rota de exclusão de URL
 
 `DELETE /urls/:id`
 
@@ -54,12 +54,12 @@ Exemplo de solicitação:
 
 `DELETE /urls/123456789`
 
-###5. Rota de exibição de URLs do usuário
+### 5. Rota de exibição de URLs do usuário
 
 `GET /users/me`
 
 Esta rota exibe todas as URLs encurtadas pelo usuário autenticado. A autenticação é necessária para acessar esta rota.
-###6. Rota de exibição do ranking
+### 6. Rota de exibição do ranking
 
 `GET /ranking`
 
@@ -69,7 +69,7 @@ Esta rota exibe um ranking das URLs mais visitadas ou populares.
 `POST /signup`
 
 Esta rota permite que um novo usuário se cadastre na aplicação. O corpo da solicitação deve incluir informações do usuário, como nome, email e senha.
-###8. Rota de login de usuário
+### 8. Rota de login de usuário
 
 `POST /signin`
 
